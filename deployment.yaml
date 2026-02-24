@@ -2,10 +2,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: storage-manager
+  namespace: dev
   labels:
     app: storage-manager
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: storage-manager
@@ -16,16 +17,16 @@ spec:
     spec:
       containers:
         - name: storage-manager
-          image: siddik00/storage-manager:latest
+          image: siddik3241/test-apps:latest   # <-- এইটা build করা image
           ports:
             - containerPort: 3000
           env:
             - name: NODE_ENV
               value: "production"
           resources:
-            requests:
-              memory: "128Mi"
-              cpu: "100m"
             limits:
               memory: "256Mi"
               cpu: "500m"
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
